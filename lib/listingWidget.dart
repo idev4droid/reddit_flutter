@@ -12,13 +12,16 @@ class ListingWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Color.fromARGB(165, 75, 75, 75),
+        color: Color.fromARGB(180, 40, 40, 40),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               buildLeftWhiteText('${post.subreddit} - ${post.authorFullname}', 10.0),
-              buildLeftWhiteText(post.title, 26.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: buildLeftWhiteText(post.title, 26.0),
+              ),
               Image.network(post.thumbnailUrl),
               buildLeftWhiteText(post.description, 16.0),
               buildLeftWhiteText(post.score.toString(), 16.0)
