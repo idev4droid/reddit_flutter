@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../models/listing.dart';
+import 'package:reddit_flutter_app/models/listing.dart';
 
 abstract class ListingState extends Equatable {
   const ListingState();
@@ -11,7 +11,7 @@ abstract class ListingState extends Equatable {
 
 class ListingUninitialized extends ListingState {}
 
-class PostError extends ListingState {}
+class ListingError extends ListingState {}
 
 class ListingLoaded extends ListingState {
   final List<Listing> listings;

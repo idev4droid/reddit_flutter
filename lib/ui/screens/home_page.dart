@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'listing/bloc/bloc.dart';
-import 'bottom_loader.dart';
-import 'listingWidget.dart';
+import '../../bloc/listing/bloc.dart';
+import '../widgets/bottom_loader.dart';
+import '../widgets/listings/listingWidget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,22 +38,22 @@ class _HomePageState extends State<HomePage> {
             child: CircularProgressIndicator(),
           );
         }
-        if (state is PostError) {
+        if (state is ListingError) {
           return Center(
-            child: Text('failed to fetch posts'),
+            child: Text('failed to fetch listings'),
           );
         }
         if (state is ListingLoaded) {
           if (state.listings.isEmpty) {
             return Center(
-              child: Text('no posts'),
+              child: Text('no listings'),
             );
           }
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               return index >= state.listings.length
                   ? BottomLoader()
-                  : ListingWidget(post: state.listings[index]);
+                  : ListingWidget(listing: state.listings[index]);
             },
             itemCount: state.hasReachedMax
                 ? state.listings.length

@@ -3,10 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'listing/bloc/bloc.dart';
-import 'home_page.dart';
-import 'listing/models/subreddit_enum.dart';
-import 'simple_bloc_delegate.dart';
+import 'bloc/listing/bloc.dart';
+import 'ui/screens/home_page.dart';
+import 'models/category_filter_enum.dart';
+import 'bloc/simple_bloc_delegate.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -36,23 +36,37 @@ class App extends StatelessWidget {
           accentColor: Colors.white
         ),
       home: DefaultTabController(
-        length: 3,
+        length: 7,
         child: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(text: "Hot"),
-                Tab(text: "Top"),
-                Tab(text: "New"),
-              ],
+            centerTitle: true,
+            bottom: PreferredSize(
+              child: TabBar(
+                isScrollable: true,
+                unselectedLabelColor: Colors.white.withOpacity(0.3),
+                tabs: [
+                  Tab(text: "Business"),
+                  Tab(text: "Entertainment"),
+                  Tab(text: "General"),
+                  Tab(text: "Health"),
+                  Tab(text: "Science"),
+                  Tab(text: "Sports"),
+                  Tab(text: "Technology"),
+                ],
+              ),
+              preferredSize: Size.fromHeight(30.0)
             ),
-            title: Text('Reddit'),
+            title: Text('News'),
           ),
           body: TabBarView(
             children: [
-              homePageProvider(SubredditFilter.Hot),
-              homePageProvider(SubredditFilter.Top),
-              homePageProvider(SubredditFilter.New),
+              homePageProvider(CategoryFilter.business),
+              homePageProvider(CategoryFilter.entertainment),
+              homePageProvider(CategoryFilter.general),
+              homePageProvider(CategoryFilter.health),
+              homePageProvider(CategoryFilter.science),
+              homePageProvider(CategoryFilter.sports),
+              homePageProvider(CategoryFilter.technology),
             ],
           ),
         ),
@@ -60,7 +74,7 @@ class App extends StatelessWidget {
     );
   }
 
-  BlocProvider<ListingBloc> homePageProvider(SubredditFilter filter) {
+  BlocProvider<ListingBloc> homePageProvider(String filter) {
     return BlocProvider(
         builder: (context) =>
         ListingBloc(httpClient: http.Client(), filter: filter)..add(Fetch()),
