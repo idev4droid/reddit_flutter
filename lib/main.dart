@@ -17,7 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Reddit Flutter',
+      title: 'News Flutter',
         theme: ThemeData(
           primarySwatch: MaterialColor( Colors.black.value,
             <int, Color>{
